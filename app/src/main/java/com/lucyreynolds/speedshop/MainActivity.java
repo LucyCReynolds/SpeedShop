@@ -42,9 +42,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        items = new String[]{"Milk","Turkey", "Toothpaste", "Apples"};
         mTitle = mDrawerTitle = "";
-        items = getResources().getStringArray(R.array.shopping_list);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -52,7 +51,7 @@ public class MainActivity extends Activity {
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, items));
 
-        items = new String[]{"Milk","Turkey", "Toothpaste", "Apples"};
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -151,10 +150,40 @@ public class MainActivity extends Activity {
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-            //selectItem(position);
+            String str = items[position];
+            switch (str){
+                case "Milk":
+                    view = (View)findViewById(R.id.MilkImage);
+                    break;
+                case "Bread":
+                    view = (View)findViewById(R.id.BreadImage);
+                    break;
+                case "Eggs":
+                    view = (View)findViewById(R.id.EggsImage);
+                    break;
+                case "Apples":
+                    view = (View)findViewById(R.id.ApplesImage);
+                    break;
+                case "Lettuce":
+                    view = (View)findViewById(R.id.LettuceImage);
+                    break;
+                case "Turkey":
+                    view = (View)findViewById(R.id.TurkeyImage);
+                    break;
+                case "Toothpaste":
+                    view = (View)findViewById(R.id.ToothpasteImage);
+                    break;
+                default:
+                    break;
+            }
+            int vis = view.getVisibility();
+            if(vis == View.VISIBLE){
+                view.setVisibility(View.INVISIBLE);
+            }
+            else {
+                view.setVisibility(View.VISIBLE);
+            }
+
         }
     }
-
-
-
 }
