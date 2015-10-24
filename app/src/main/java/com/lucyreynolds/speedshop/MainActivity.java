@@ -2,8 +2,11 @@ package com.lucyreynolds.speedshop;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.SearchManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -35,18 +38,28 @@ public class MainActivity extends Activity {
     private ListView mDrawerList;
     View view;
     private ActionBarDrawerToggle mDrawerToggle;
-    String[] temp = {"Milk","Turkey", "Toothpaste", "Apples"};
+    ArrayList<String> selected;
+    ArrayList<Integer> selInd;
 
     CharSequence mTitle;
     CharSequence mDrawerTitle;
     ArrayAdapter myAdap;
+    Dialog dialog;
+    String[] database;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        items = new LinkedList<>(Arrays.asList(temp));
+
+        database = getResources().getStringArray(R.array.shopping_list);
+
+        Intent it = getIntent();
+        selected = it.getStringArrayListExtra("sel");
+
+        items = new LinkedList<>();
+        items.addAll(selected);
         mTitle = mDrawerTitle = "";
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -81,8 +94,8 @@ public class MainActivity extends Activity {
 
 
 
-        for (int i = 0; i < items.size(); i++) {
-            String cur = items.get(i);
+        for (int i = 0; i < selected.size(); i++) {
+            String cur = selected.get(i);
 
             switch (cur){
                 case "Milk":
@@ -151,10 +164,11 @@ public class MainActivity extends Activity {
     }
 
 
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-            String str = temp[position];
+            String str = selected.get(position);
             String ts;
             switch (str){
                 case "Milk":
