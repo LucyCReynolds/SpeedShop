@@ -1,5 +1,6 @@
 package com.lucyreynolds.speedshop;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +24,11 @@ public class MainActivity extends Activity {
     private String[] items;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
+    View view;
+    private ActionBarDrawerToggle mDrawerToggle;
+
+    CharSequence mTitle;
+    CharSequence mDrawerTitle;
 
 
     @Override
@@ -30,7 +37,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
 
-
+        mTitle = mDrawerTitle = "";
         items = getResources().getStringArray(R.array.shopping_list);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -39,13 +46,73 @@ public class MainActivity extends Activity {
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, items));
 
-        Intent intent = new Intent(MainActivity.this, MapActivity.class);
+        items = new String[]{"Milk","Turkey", "Toothpaste", "Apples"};
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        MainActivity.this.startActivity(intent);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                mDrawerLayout,         /* DrawerLayout object */
+                R.string.drawer_open,  /* "open drawer" description for accessibility */
+                R.string.drawer_close  /* "close drawer" description for accessibility */
+        ) {
+            public void onDrawerClosed(View view) {
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+
+
+        for (int i = 0; i < items.length; i++) {
+            String cur = items[i];
+
+            switch (cur){
+                case "Milk":
+                    view = (View)findViewById(R.id.MilkImage);
+                    view.setVisibility(View.VISIBLE);
+                    break;
+                case "Bread":
+                    view = (View)findViewById(R.id.BreadImage);
+                    view.setVisibility(View.VISIBLE);
+                    break;
+                case "Eggs":
+                    view = (View)findViewById(R.id.EggsImage);
+                    view.setVisibility(View.VISIBLE);
+                    break;
+                case "Apples":
+                    view = (View)findViewById(R.id.ApplesImage);
+                    view.setVisibility(View.VISIBLE);
+                    break;
+                case "Lettuce":
+                    view = (View)findViewById(R.id.LettuceImage);
+                    view.setVisibility(View.VISIBLE);
+                    break;
+                case "Turkey":
+                    view = (View)findViewById(R.id.TurkeyImage);
+                    view.setVisibility(View.VISIBLE);
+                    break;
+                case "Toothpaste":
+                    view = (View)findViewById(R.id.ToothpasteImage);
+                    view.setVisibility(View.VISIBLE);
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
     }
-
 
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {

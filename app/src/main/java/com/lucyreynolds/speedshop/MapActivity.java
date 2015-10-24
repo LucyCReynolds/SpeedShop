@@ -13,53 +13,13 @@ public class MapActivity extends ActionBarActivity {
     View view;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        items = new String[]{"Milk","Turkey", "Toothpaste", "Apples"};
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        for (int i = 0; i < items.length; i++) {
-            String cur = items[i];
-
-            switch (cur){
-                case "Milk":
-                    view = (View)findViewById(R.id.MilkImage);
-                    view.setVisibility(View.VISIBLE);
-                    break;
-                case "Bread":
-                    view = (View)findViewById(R.id.BreadImage);
-                    view.setVisibility(View.VISIBLE);
-                    break;
-                case "Eggs":
-                    view = (View)findViewById(R.id.EggsImage);
-                    view.setVisibility(View.VISIBLE);
-                    break;
-                case "Apples":
-                    view = (View)findViewById(R.id.ApplesImage);
-                    view.setVisibility(View.VISIBLE);
-                    break;
-                case "Lettuce":
-                    view = (View)findViewById(R.id.LettuceImage);
-                    view.setVisibility(View.VISIBLE);
-                    break;
-                case "Turkey":
-                    view = (View)findViewById(R.id.TurkeyImage);
-                    view.setVisibility(View.VISIBLE);
-                    break;
-                case "Toothpaste":
-                    view = (View)findViewById(R.id.ToothpasteImage);
-                    view.setVisibility(View.VISIBLE);
-                    break;
-                default:
-                    break;
-            }
-
-        }
     }
 
     @Override
