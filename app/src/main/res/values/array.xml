@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="shopping_list">
+        <item name = "Milk">Milk</item>
+        <item name = "Eggs">Eggs</item>
+        <item name = "Apples">Apples</item>
+        <item name = "Lettuce">Lettuce</item>
+        <item name = "Bread">Bread</item>
+        <item name = "Turkey">Turkey</item>
+        <item name = "Toothpaste">Toothpaste</item>
+    </string-array>
+</resources>
