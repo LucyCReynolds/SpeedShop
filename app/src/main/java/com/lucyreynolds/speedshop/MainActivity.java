@@ -25,15 +25,17 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 
 public class MainActivity extends Activity {
-    private ArrayList<String> items;
+    private LinkedList<String> items;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     View view;
     private ActionBarDrawerToggle mDrawerToggle;
+    String[] temp = {"Milk","Turkey", "Toothpaste", "Apples"};
 
     CharSequence mTitle;
     CharSequence mDrawerTitle;
@@ -44,8 +46,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String[] temp = {"Milk","Turkey", "Toothpaste", "Apples"};
-        items = new ArrayList<String>(Arrays.asList(temp));
+        items = new LinkedList<>(Arrays.asList(temp));
         mTitle = mDrawerTitle = "";
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -153,9 +154,8 @@ public class MainActivity extends Activity {
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-            String str = items.get(position);
-            items.remove(str);
-            myAdap.notifyDataSetChanged();
+            String str = temp[position];
+            String ts;
             switch (str){
                 case "Milk":
                     view = (View)findViewById(R.id.MilkImage);
@@ -183,13 +183,18 @@ public class MainActivity extends Activity {
                     break;
             }
             int vis = view.getVisibility();
+
             if(vis == View.VISIBLE){
                 view.setVisibility(View.INVISIBLE);
+                ts = "\u2714" + str;
             }
             else {
                 view.setVisibility(View.VISIBLE);
+                ts = str;
             }
 
+            items.set(position,ts);
+            myAdap.notifyDataSetChanged();
         }
     }
 }
