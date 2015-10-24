@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -19,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ import java.util.List;
 
 
 public class MainActivity extends Activity {
-    private String[] items;
+    private ArrayList<String> items;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     View view;
@@ -35,21 +37,22 @@ public class MainActivity extends Activity {
 
     CharSequence mTitle;
     CharSequence mDrawerTitle;
+    ArrayAdapter myAdap;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        items = new String[]{"Milk","Turkey", "Toothpaste", "Apples"};
+        String[] temp = {"Milk","Turkey", "Toothpaste", "Apples"};
+        items = new ArrayList<String>(Arrays.asList(temp));
         mTitle = mDrawerTitle = "";
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
                 // Set the adapter for the list view
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, items));
+        myAdap = new ArrayAdapter<String>(this, R.layout.drawer_list_item, items);
+        mDrawerList.setAdapter(myAdap);
 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -77,8 +80,8 @@ public class MainActivity extends Activity {
 
 
 
-        for (int i = 0; i < items.length; i++) {
-            String cur = items[i];
+        for (int i = 0; i < items.size(); i++) {
+            String cur = items.get(i);
 
             switch (cur){
                 case "Milk":
@@ -150,10 +153,13 @@ public class MainActivity extends Activity {
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-            String str = items[position];
+            String str = items.get(position);
+            items.remove(str);
+            myAdap.notifyDataSetChanged();
             switch (str){
                 case "Milk":
                     view = (View)findViewById(R.id.MilkImage);
+
                     break;
                 case "Bread":
                     view = (View)findViewById(R.id.BreadImage);
